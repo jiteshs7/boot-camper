@@ -1,0 +1,983 @@
+{
+	"info": {
+		"_postman_id": "7a1265d1-d6ec-407b-b8d5-e55448145b1d",
+		"name": "devcamper API",
+		"description": "Backend api for devcamper application\n\nto manage bootcamps, resources, reviews, users and auth",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "12819496"
+	},
+	"item": [
+		{
+			"name": "Bootcamps",
+			"item": [
+				{
+					"name": "Get all Bootcamps",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY1NzI5NjgxODlmYjhlODA1MTUxMTliMSIsImlhdCI6MTcwMjAzOTczMSwiZXhwIjoxNzA0NjMxNzMxfQ.ZcqJ01RIZx9GMYj35HTIDkL8VfuhRiQtOZkQ26p6bjg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								""
+							],
+							"query": [
+								{
+									"key": "averageCost[lte]",
+									"value": "10000",
+									"disabled": true
+								},
+								{
+									"key": "location.city",
+									"value": "Boston",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": "location,name",
+									"disabled": true
+								},
+								{
+									"key": "sort",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "select",
+									"value": "name",
+									"disabled": true
+								},
+								{
+									"key": "page",
+									"value": "2",
+									"disabled": true
+								}
+							]
+						},
+						"description": "Used to get all bootcamps including functionalities like filter, search, sorting and pagination."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Single Bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/656c5e993353263c3ec7e71d",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"656c5e993353263c3ec7e71d"
+							]
+						},
+						"description": "Get info about single bootcamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Bootcamps radius",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/radius/02118/100/mi",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"radius",
+								"02118",
+								"100",
+								"mi"
+							]
+						},
+						"description": "Get bootcamps with in a specific radius of zipcode, in miles(mi) or kilometers(km) depending upon params."
+					},
+					"response": []
+				},
+				{
+					"name": "Create new Bootcamp",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{TOKEN}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Devworks Bootcamp 4\",\n\t\t\"description\": \"Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer\",\n\t\t\"website\": \"https://devworks.com\",\n\t\t\"phone\": \"1234567890\",\n\t\t\"email\": \"enroll@devworks2.com\",\n\t\t\"address\": \"233 Bay State Rd Boston MA 02215\",\n\t\t\"careers\": [\"Web Development\", \"UI/UX\", \"Business\"],\n\t\t\"housing\": true,\n\t\t\"jobAssistance\": true,\n\t\t\"jobGuarantee\": false,\n\t\t\"acceptGi\": true\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps"
+							]
+						},
+						"description": "Create new bootcamp\n\nOnly publisher and admin can create new bootcamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Bootcamp",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"_id\": \"654930598482f30dd3263e5e\",\n            \"name\": \"Devworks Bootcamp returned\",\n            \"description\": \"Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer\",\n            \"website\": \"https://devworks.com\",\n            \"phone\": \"1234567890\",\n            \"email\": \"enroll@devworks.com\",\n            \"address\": \"233 Bay State Rd Boston MA 02215\",\n            \"careers\": [\n                \"Web Development\",\n                \"UI/UX\",\n                \"Business\"\n            ],\n            \"photo\": \"no-photo.jpg\",\n            \"housing\": true,\n            \"jobAssistance\": true,\n            \"jobGuarantee\": false,\n            \"acceptGi\": true\n        }"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/654930598482f30dd3263e5e",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"654930598482f30dd3263e5e"
+							]
+						},
+						"description": "Update details of bootcamp\n\nOnly publisher and admin can update bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Upload bootcamp photo",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"_id\": \"654930598482f30dd3263e5e\",\n            \"name\": \"Devworks Bootcamp returned\",\n            \"description\": \"Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer\",\n            \"website\": \"https://devworks.com\",\n            \"phone\": \"1234567890\",\n            \"email\": \"enroll@devworks.com\",\n            \"address\": \"233 Bay State Rd Boston MA 02215\",\n            \"careers\": [\n                \"Web Development\",\n                \"UI/UX\",\n                \"Business\"\n            ],\n            \"photo\": \"no-photo.jpg\",\n            \"housing\": true,\n            \"jobAssistance\": true,\n            \"jobGuarantee\": false,\n            \"acceptGi\": true\n        }"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/654930598482f30dd3263e5e/photo",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"654930598482f30dd3263e5e",
+								"photo"
+							]
+						},
+						"description": "Upload picture for specific bootcamp\n\nOnly publisher and admin can upload picture for bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete specific Bootcamp",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/657087abed92dd6e71b2a2ae",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"657087abed92dd6e71b2a2ae"
+							]
+						},
+						"description": "Delete any bootcamp, only publisher and admin can delete them."
+					},
+					"response": []
+				}
+			],
+			"description": "Bottcamps CRUD functionality"
+		},
+		{
+			"name": "Courses",
+			"item": [
+				{
+					"name": "Get courses",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses"
+							]
+						},
+						"description": "Get all courses including features like sort, filter, search and pagination, same as in Get all bootcamps"
+					},
+					"response": []
+				},
+				{
+					"name": "Get course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/5d725a4a7b292f5f8ceff789",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"5d725a4a7b292f5f8ceff789"
+							]
+						},
+						"description": "Get single course info"
+					},
+					"response": []
+				},
+				{
+					"name": "Create Course",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"New JS 2\",\n\t\"description\": \"This course will provide you with all of the essentials to become a successful frontend web developer. You will learn to master HTML, CSS and front end JavaScript, along with tools like Git, VSCode and front end frameworks like Vue\",\n\t\"weeks\": 8,\n\t\"tuition\": 1001,\n\t\"minimumSkill\": \"beginner\",\n\t\"scholarhipsAvailable\": true,\n\t\"user\": \"5d7a514b5d2c12c7449be045\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/657087faffdd3623b9b96214/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"657087faffdd3623b9b96214",
+								"courses"
+							]
+						},
+						"description": "Create single course based on specific bootcamp.\n\nOnly publisher and admin can create new course."
+					},
+					"response": []
+				},
+				{
+					"name": "Get bootcamp course",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a037b292f5f8ceff787/courses",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a037b292f5f8ceff787",
+								"courses"
+							]
+						},
+						"description": "Get all courses related to specific bootcamp"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Course",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n\t\"title\": \"New JS Reloaded\",\n\t\"weeks\": 10\n}"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/65707f50d2271cd6dc44ea07",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"65707f50d2271cd6dc44ea07"
+							]
+						},
+						"description": "Update course, only publisher and admin can update course."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Course",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n            \"_id\": \"654930598482f30dd3263e5e\",\n            \"name\": \"Devworks Bootcamp returned\",\n            \"description\": \"Devworks is a full stack JavaScript Bootcamp located in the heart of Boston that focuses on the technologies you need to get a high paying job as a web developer\",\n            \"website\": \"https://devworks.com\",\n            \"phone\": \"1234567890\",\n            \"email\": \"enroll@devworks.com\",\n            \"address\": \"233 Bay State Rd Boston MA 02215\",\n            \"careers\": [\n                \"Web Development\",\n                \"UI/UX\",\n                \"Business\"\n            ],\n            \"photo\": \"no-photo.jpg\",\n            \"housing\": true,\n            \"jobAssistance\": true,\n            \"jobGuarantee\": false,\n            \"acceptGi\": true\n        }"
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/courses/65707f50d2271cd6dc44ea07",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"courses",
+								"65707f50d2271cd6dc44ea07"
+							]
+						},
+						"description": "Delete any existing course.\n\nOnly publisher and admin can delete courses."
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD functionalities for courses included in bootcamps."
+		},
+		{
+			"name": "Authentication",
+			"item": [
+				{
+					"name": "Register",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set('TOKEN',pm.response.json())"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"AB\",\n    \"email\":\"a@ab.com\",\n    \"role\":\"user\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/register",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"register"
+							]
+						},
+						"description": "User can register as publisher or user only."
+					},
+					"response": []
+				},
+				{
+					"name": "login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set('TOKEN',pm.response.json());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"a@ab.com\",\n    \"password\":\"1234567\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/login",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"login"
+							]
+						},
+						"description": "Any user with any role can login with this."
+					},
+					"response": []
+				},
+				{
+					"name": "logout",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.environment.set('TOKEN',pm.response.json());"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/logut",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"logut"
+							]
+						},
+						"description": "User can logout through this."
+					},
+					"response": []
+				},
+				{
+					"name": "Forgot Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"a@ab.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/forgotPassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"forgotPassword"
+							]
+						},
+						"description": "Forgot password by just adding valid email address."
+					},
+					"response": []
+				},
+				{
+					"name": "Reset Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"password\":\"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/resetPassword/7dc7fe1e9e32315ce79329884d86cb22e87470e7",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"resetPassword",
+								"7dc7fe1e9e32315ce79329884d86cb22e87470e7"
+							]
+						},
+						"description": "User can reset password by setting new password."
+					},
+					"response": []
+				},
+				{
+					"name": "Update User",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"email\":\"a@ab.com\",\n    \"name\":\"AB\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/updateUser",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"updateUser"
+							]
+						},
+						"description": "Update details of the user, only current user or admin can do that."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Password",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"currentPassword\":\"1234567\",\n    \"newPassword\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/updatePassword",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"updatePassword"
+							]
+						},
+						"description": "Update password by setting new password."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Current User",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/auth/currentUser",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"auth",
+								"currentUser"
+							]
+						},
+						"description": "Get details for logged in user."
+					},
+					"response": []
+				}
+			],
+			"description": "Authentication for registering user"
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "Get all users",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": "Get all users added to DB."
+					},
+					"response": []
+				},
+				{
+					"name": "Create new user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"Jitesh\",\n    \"email\":\"a@ab.com\",\n    \"role\":\"user\",\n    \"password\":\"123456\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users"
+							]
+						},
+						"description": "Only Admins can create a new user."
+					},
+					"response": []
+				},
+				{
+					"name": "Get single user",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/423423j4jkhjkh324234",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"423423j4jkhjkh324234"
+							]
+						},
+						"description": "Get info about single user."
+					},
+					"response": []
+				},
+				{
+					"name": "Update  user",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"New AB\",\n    \"email\":\"ab@ab.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/234234gh23g4hjghjg",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"234234gh23g4hjghjg"
+							]
+						},
+						"description": "Only admins can update info for any user."
+					},
+					"response": []
+				},
+				{
+					"name": "Delete  user",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/users/423423j4jkhjkh324234",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"users",
+								"423423j4jkhjkh324234"
+							]
+						},
+						"description": "Only admins can delete any user."
+					},
+					"response": []
+				}
+			],
+			"description": "CRUD functionalities only available for admins."
+		},
+		{
+			"name": "Reviews",
+			"item": [
+				{
+					"name": "Get reviews",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews"
+							]
+						},
+						"description": "Get all reviews including features like sort, filter search and paginaiton."
+					},
+					"response": []
+				},
+				{
+					"name": "Get review for bootcamp",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a4a7b292f5f8ceff789/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a4a7b292f5f8ceff789",
+								"reviews"
+							]
+						},
+						"description": "Get reviews for any specific bootcamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Create new review for a bootcamp",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"title\": \"New review!\",\n\t\"text\": \"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec viverra feugiat mauris id viverra. Duis luctus ex sed facilisis ultrices. Curabitur scelerisque bibendum ligula, quis condimentum libero fermentum in. Aenean erat erat, aliquam in purus a, rhoncus hendrerit tellus. Donec accumsan justo in felis consequat sollicitudin. Fusce luctus mattis nunc vitae maximus. Curabitur semper felis eu magna laoreet scelerisque\",\n\t\"rating\": \"8\"\n\t\t\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{URL}}/api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"bootcamps",
+								"5d725a1b7b292f5f8ceff788",
+								"reviews"
+							]
+						},
+						"description": "Add review for any bootcamp, Publisher and users can add only one review for any specific bootcamp."
+					},
+					"response": []
+				},
+				{
+					"name": "Get single review",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{URL}}/api/v1/reviews/5d725a4a7b292f5f8ceff789",
+							"host": [
+								"{{URL}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"reviews",
+								"5d725a4a7b292f5f8ceff789"
+							]
+						},
+						"description": "Get any single review."
+					},
+					"response": []
+				}
+			],
+			"description": "Reviews for courses added in the DB."
+		}
+	]
+}

@@ -10,9 +10,13 @@ const mongoSanitize = require("express-mongo-sanitize");
 const helmet = require("helmet");
 const xss = require("xss-clean");
 const hpp = require("hpp");
+const cors = require("cors");
 const expressLimit = require("express-rate-limit");
-
+const swaggerui = require("swagger-ui-express");
+const postmanToOpenapi = require("postman-to-openapi");
+const yaml = require("yamljs");
 const errorHandler = require("./middleware/errorHandler");
+
 //Routes
 const bootcamps = require("./routes/bootcamps");
 const courses = require("./routes/courses");
@@ -64,6 +68,41 @@ app.use(cookieParser());
 
 // Set static folder
 app.use(express.static(path.join(__dirname, "public")));
+
+// Generate the swagger ui
+
+postmanToOpenapi(
+  "postman/devcamper_collection.json",
+  path.join("postman/swagger.yml"),
+  { defaultTags: "General" }
+).then((resp) => {
+  const result = yaml.load("postman/swagger.yml");
+  result.servers[0].url = `http://localhost:${process.env.PORT || 5000}`;
+  app.use("/", swaggerui.serve, swaggerui.setup(result));
+});
+//Swagger
+
+const options = {
+  definition: {
+    openapi: "3.0.0",
+    info: {
+      title: "Jitesh's Boot-camper with swagger",
+      version: "1.0.1",
+      description:
+        "A application made for creating courses and bootcamps with Nodejs and Express.",
+      contact: {
+        name: "Jitesh Sharma",
+        email: "jiteshs045@gmail.com",
+      },
+    },
+    servers: [
+      {
+        url: "http://localhost:5000/",
+      },
+    ],
+  },
+  apis: ["/routes/*.js"],
+};
 
 //Mount Routers
 app.use("/api/v1/bootcamps", bootcamps);
