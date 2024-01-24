@@ -1,0 +1,592 @@
+openapi: 3.0.0
+info:
+  title: devcamper API
+  description: |-
+    Backend api for devcamper application
+
+    to manage bootcamps, resources, reviews, users and auth
+  version: 1.0.0
+servers:
+  - url: http://{{url}}
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+tags:
+  - name: Bootcamps
+    description: Bottcamps CRUD functionality
+  - name: Courses
+    description: CRUD functionalities for courses included in bootcamps.
+  - name: Authentication
+    description: Authentication for registering user
+  - name: Users
+    description: CRUD functionalities only available for admins.
+  - name: Reviews
+    description: Reviews for courses added in the DB.
+paths:
+  /api/v1/bootcamps/:
+    get:
+      tags:
+        - Bootcamps
+      summary: Get all Bootcamps
+      description: >-
+        Used to get all bootcamps including functionalities like filter, search,
+        sorting and pagination.
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/656c5e993353263c3ec7e71d:
+    get:
+      tags:
+        - Bootcamps
+      summary: Get Single Bootcamp
+      description: Get info about single bootcamp.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/radius/02118/100/mi:
+    get:
+      tags:
+        - Bootcamps
+      summary: Get Bootcamps radius
+      description: >-
+        Get bootcamps with in a specific radius of zipcode, in miles(mi) or
+        kilometers(km) depending upon params.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps:
+    post:
+      tags:
+        - Bootcamps
+      summary: Create new Bootcamp
+      description: |-
+        Create new bootcamp
+
+        Only publisher and admin can create new bootcamp.
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: >-
+                "{\n    \"name\": \"Devworks Bootcamp 4\",\n\t\t\"description\":
+                \"Devworks is a full stack JavaScript Bootcamp located in the
+                heart of Boston that focuses on the technologies you need to get
+                a high paying job as a web developer\",\n\t\t\"website\":
+                \"https://devworks.com\",\n\t\t\"phone\":
+                \"1234567890\",\n\t\t\"email\":
+                \"enroll@devworks2.com\",\n\t\t\"address\": \"233 Bay State Rd
+                Boston MA 02215\",\n\t\t\"careers\": [\"Web Development\",
+                \"UI/UX\", \"Business\"],\n\t\t\"housing\":
+                true,\n\t\t\"jobAssistance\": true,\n\t\t\"jobGuarantee\":
+                false,\n\t\t\"acceptGi\": true\n}"
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/654930598482f30dd3263e5e:
+    put:
+      tags:
+        - Bootcamps
+      summary: Update Bootcamp
+      description: |-
+        Update details of bootcamp
+
+        Only publisher and admin can update bootcamp
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: >-
+                "{\n            \"_id\":
+                \"654930598482f30dd3263e5e\",\n            \"name\": \"Devworks
+                Bootcamp returned\",\n            \"description\": \"Devworks is
+                a full stack JavaScript Bootcamp located in the heart of Boston
+                that focuses on the technologies you need to get a high paying
+                job as a web developer\",\n            \"website\":
+                \"https://devworks.com\",\n            \"phone\":
+                \"1234567890\",\n            \"email\":
+                \"enroll@devworks.com\",\n            \"address\": \"233 Bay
+                State Rd Boston MA 02215\",\n            \"careers\":
+                [\n                \"Web Development\",\n               
+                \"UI/UX\",\n                \"Business\"\n           
+                ],\n            \"photo\": \"no-photo.jpg\",\n           
+                \"housing\": true,\n            \"jobAssistance\":
+                true,\n            \"jobGuarantee\": false,\n           
+                \"acceptGi\": true\n        }"
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/654930598482f30dd3263e5e/photo:
+    put:
+      tags:
+        - Bootcamps
+      summary: Upload bootcamp photo
+      description: |-
+        Upload picture for specific bootcamp
+
+        Only publisher and admin can upload picture for bootcamp
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: >-
+                "{\n            \"_id\":
+                \"654930598482f30dd3263e5e\",\n            \"name\": \"Devworks
+                Bootcamp returned\",\n            \"description\": \"Devworks is
+                a full stack JavaScript Bootcamp located in the heart of Boston
+                that focuses on the technologies you need to get a high paying
+                job as a web developer\",\n            \"website\":
+                \"https://devworks.com\",\n            \"phone\":
+                \"1234567890\",\n            \"email\":
+                \"enroll@devworks.com\",\n            \"address\": \"233 Bay
+                State Rd Boston MA 02215\",\n            \"careers\":
+                [\n                \"Web Development\",\n               
+                \"UI/UX\",\n                \"Business\"\n           
+                ],\n            \"photo\": \"no-photo.jpg\",\n           
+                \"housing\": true,\n            \"jobAssistance\":
+                true,\n            \"jobGuarantee\": false,\n           
+                \"acceptGi\": true\n        }"
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/657087abed92dd6e71b2a2ae:
+    delete:
+      tags:
+        - Bootcamps
+      summary: Delete specific Bootcamp
+      description: Delete any bootcamp, only publisher and admin can delete them.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/courses:
+    get:
+      tags:
+        - Courses
+      summary: Get courses
+      description: >-
+        Get all courses including features like sort, filter, search and
+        pagination, same as in Get all bootcamps
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/courses/5d725a4a7b292f5f8ceff789:
+    get:
+      tags:
+        - Courses
+      summary: Get course
+      description: Get single course info
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/657087faffdd3623b9b96214/courses:
+    post:
+      tags:
+        - Courses
+      summary: Create Course
+      description: |-
+        Create single course based on specific bootcamp.
+
+        Only publisher and admin can create new course.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: New JS 2
+                description: >-
+                  This course will provide you with all of the essentials to
+                  become a successful frontend web developer. You will learn to
+                  master HTML, CSS and front end JavaScript, along with tools
+                  like Git, VSCode and front end frameworks like Vue
+                weeks: 8
+                tuition: 1001
+                minimumSkill: beginner
+                scholarhipsAvailable: true
+                user: 5d7a514b5d2c12c7449be045
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d725a037b292f5f8ceff787/courses:
+    get:
+      tags:
+        - Courses
+      summary: Get bootcamp course
+      description: Get all courses related to specific bootcamp
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/courses/65707f50d2271cd6dc44ea07:
+    put:
+      tags:
+        - Courses
+      summary: Update Course
+      description: Update course, only publisher and admin can update course.
+      requestBody:
+        content:
+          "*/*":
+            schema:
+              type: string
+              example: '"{\n\t\"title\": \"New JS Reloaded\",\n\t\"weeks\": 10\n}"'
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Courses
+      summary: Delete Course
+      description: |-
+        Delete any existing course.
+
+        Only publisher and admin can delete courses.
+      parameters:
+        - name: Content-Type
+          in: header
+          schema:
+            type: string
+          example: application/json
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/register:
+    post:
+      tags:
+        - Authentication
+      summary: Register
+      description: User can register as publisher or user only.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: AB
+                email: a@ab.com
+                role: user
+                password: "123456"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/login:
+    post:
+      tags:
+        - Authentication
+      summary: login
+      description: Any user with any role can login with this.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: a@ab.com
+                password: "1234567"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/logut:
+    post:
+      tags:
+        - Authentication
+      summary: logout
+      description: User can logout through this.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: ""
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/forgotPassword:
+    post:
+      tags:
+        - Authentication
+      summary: Forgot Password
+      description: Forgot password by just adding valid email address.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: a@ab.com
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/resetPassword/7dc7fe1e9e32315ce79329884d86cb22e87470e7:
+    put:
+      tags:
+        - Authentication
+      summary: Reset Password
+      description: User can reset password by setting new password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                password: "12345678"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/updateUser:
+    put:
+      tags:
+        - Authentication
+      summary: Update User
+      description: Update details of the user, only current user or admin can do that.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                email: a@ab.com
+                name: AB
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/updatePassword:
+    put:
+      tags:
+        - Authentication
+      summary: Update Password
+      description: Update password by setting new password.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                currentPassword: "1234567"
+                newPassword: "123456"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/auth/currentUser:
+    post:
+      tags:
+        - Authentication
+      summary: Get Current User
+      description: Get details for logged in user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example: ""
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users:
+    get:
+      tags:
+        - Users
+      summary: Get all users
+      description: Get all users added to DB.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    post:
+      tags:
+        - Users
+      summary: Create new user
+      description: Only Admins can create a new user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: Jitesh
+                email: a@ab.com
+                role: user
+                password: "123456"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/423423j4jkhjkh324234:
+    get:
+      tags:
+        - Users
+      summary: Get single user
+      description: Get info about single user.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+    delete:
+      tags:
+        - Users
+      summary: Delete  user
+      description: Only admins can delete any user.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/users/234234gh23g4hjghjg:
+    put:
+      tags:
+        - Users
+      summary: Update  user
+      description: Only admins can update info for any user.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                name: New AB
+                email: ab@ab.com
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reviews:
+    get:
+      tags:
+        - Reviews
+      summary: Get reviews
+      description: >-
+        Get all reviews including features like sort, filter search and
+        paginaiton.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d725a4a7b292f5f8ceff789/reviews:
+    get:
+      tags:
+        - Reviews
+      summary: Get review for bootcamp
+      description: Get reviews for any specific bootcamp.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/bootcamps/5d725a1b7b292f5f8ceff788/reviews:
+    post:
+      tags:
+        - Reviews
+      summary: Create new review for a bootcamp
+      description: >-
+        Add review for any bootcamp, Publisher and users can add only one review
+        for any specific bootcamp.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              example:
+                title: New review!
+                text: >-
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec
+                  viverra feugiat mauris id viverra. Duis luctus ex sed
+                  facilisis ultrices. Curabitur scelerisque bibendum ligula,
+                  quis condimentum libero fermentum in. Aenean erat erat,
+                  aliquam in purus a, rhoncus hendrerit tellus. Donec accumsan
+                  justo in felis consequat sollicitudin. Fusce luctus mattis
+                  nunc vitae maximus. Curabitur semper felis eu magna laoreet
+                  scelerisque
+                rating: "8"
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
+  /api/v1/reviews/5d725a4a7b292f5f8ceff789:
+    get:
+      tags:
+        - Reviews
+      summary: Get single review
+      description: Get any single review.
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json: {}
